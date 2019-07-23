@@ -1,0 +1,54 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="partner_ymca.packages">
+      <field name="name">partner.ymca packages</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//page[1]" position="before">
+             <page string="Historial" autofocus="autofocus">
+                 <field name="incomes"/>
+             </page>
+             <page string="Familiares">
+                 <field name="family"/>
+             </page>
+         </xpath>
+        <field name="company_type" position="before">
+            <field name="packages" nolabel="1" widget="radio"  options="{'horizontal': true}"
+                attrs="{'invisible':[('customer', '!=', True)]}"/>
+        </field>
+        <field name="function" position="before">
+          <group class="color-font" col="2">
+              <field name="family_active"/>
+              <field class="color-red" name="last_month_pay" readonly="1"   attrs="{'invisible':[('customer', '!=', True)]}"/>
+              <field name="code"  attrs="{'invisible':[('customer', '!=', True)]}"/>
+              <field name="no_casillero" attrs="{'invisible':[('customer', '!=', True)]}"/>
+              <field class="color-red" id="casillero_disponible" name="casillero_disponible" readonly="1" attrs="{'invisible':[('no_casillero', '==', 0)]}"/>
+          </group>
+        </field>
+        <!-- <notebook  position="inside">
+
+        </notebook> -->
+      </field>
+    </record>
+
+    <!--  Tree -->
+    <record model="ir.ui.view" id="tree_view_invoice">
+        <field name="name">tree.partner.ymca</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <field name="display_name" position="after">
+                  <field name="packages"/>
+                  <field name="last_month_pay"/>
+                  <field name="code"/>
+                  <field name="no_casillero"/>
+                  <field name="casillero_disponible"/>
+                  <field name="family_active"/>
+            </field>
+      </field>
+    </record>
+
+  </data>
+</odoo>

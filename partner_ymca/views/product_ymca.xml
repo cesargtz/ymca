@@ -1,0 +1,16 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="products_ymca_packages">
+      <field name="name">product_ymca_packages</field>
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_only_form_view"/>
+      <field name="arch" type="xml">
+        <field name="type" position="before">
+            <field name="packages"/>
+        </field>
+      </field>
+    </record>
+
+  </data>
+</odoo>

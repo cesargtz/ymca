@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_custom_addons/ymca_income_vaoucher_custom_addons/ymca_income_vaoucher,custom_addons/ymca_income_vaoucher.custom_addons/ymca_income_vaoucher,model_custom_addons/ymca_income_vaoucher_custom_addons/ymca_income_vaoucher,,1,0,0,0

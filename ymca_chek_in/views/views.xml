@@ -1,0 +1,110 @@
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="ymca_checkin_form_view">
+      <field name="name">ymca.chek_in.form</field>
+      <field name="model">ymca.chek_in</field>
+      <field name="arch" type="xml">
+        <form>
+          <group col="2">
+            <field name="user_zkteco" string="Id de Usuario del Checador"/>
+            <field name="user_id"/>
+            <field name="check_in"/>
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="ymca_checkin_tree_view">
+      <field name="name">ymca.chek_in.tree</field>
+      <field name="model">ymca.chek_in</field>
+      <field name="arch" type="xml">
+        <tree string="Check In" default_order="id desc">
+          <field name="user_zkteco" string="Id de Usuario del Checador"/>
+          <field name="user_id"/>
+          <field name="check_in"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="checkin_list_action">
+      <field name="name">ymca check in</field>
+      <field name="res_model">ymca.chek_in</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">Create the first Check in</p>
+      </field>
+    </record>
+    <menuitem id="item_check_in_zk" name="Checador" parent="account.menu_finance_entries" sequence="100" action="checkin_list_action"/>
+
+    <!--  Inherit account.voucher -->
+    <record model="ir.ui.view" id="zkteco_last_record_vaoucher">
+      <field name="name">zkteco_last_record</field>
+      <field name="model">account.voucher</field>
+      <field name="inherit_id" ref="account_voucher.view_sale_receipt_form"/>
+      <field name="arch" type="xml">
+        <button name="action_cancel_draft"  position="after">
+          <button type="object" class="btn-danger"
+              name="open_door" string="Abrir Puerta"/>
+          <button type="object" class="btn-success"
+              name="enable_user" string="Activar Usuario"
+              attrs="{'invisible':[('state_user_zktec', 'not in', ['Desactivado'])]}" />
+        </button>
+        <!--  attrs="{'invisible':[('state_user_zktec', 'in', ['Desactivado'])]}"  -->
+          <field name="date_due" position="after">
+              <field name="check_in" readonly="1" style="color:#337ab7"/>
+              <field name="state_user_zktec" invisible="1"/>
+          </field>
+      </field>
+    </record>
+    <!-- End Inherit -->
+  </data>
+  <data>
+    <!--  Inherit partner_ymca_coder -->
+    <record model="ir.ui.view" id="zkteco_create_user_ymca">
+      <field name="name">zkteco_create_user</field>
+      <field name="model">partner_ymca_code</field>
+      <field name="inherit_id" ref="partner_ymca.ymca_code_tree_view"/>
+      <field name="arch" type="xml">
+          <field name="partner" position="after">
+              <field name="name_show"/>
+              <field name="finger"/>
+              <field name="estado" readonly="1"/>
+              <button name="delete_enroll_finger" class="oe_highlight button-zkteck" icon="fa-trash-o"
+                    String="Crear" type="object" help="Borrar Usuario"></button>
+          </field>
+          <field name="code" position="before">
+            <button name="create_zkteco_user" class="oe_highlight" style="background:red;" icon="fa-user"
+                  String="Crear" type="object"></button>
+          </field>
+          <field name="partner" position="after">
+            <button name="enable_zkteco_user" class="oe_highlight" style="background:green;" icon="fa-check-square"
+                  String="Activar" type="object"></button>
+            <button name="disable_zkteco_user" class="oe_highlight" style="background:silver;" icon="fa-minus-square"
+                  String="Desactivar" type="object"></button>
+          </field>
+          <tree position="attributes">
+            <attribute name="colors">red: estado == 'Sin Enlazar';green: estado == 'Enlazado';silver: estado == 'Desactivado';</attribute>
+          </tree>
+      </field>
+    </record>
+
+    <!-- End Inherit partner_ymca_code -->
+
+    <!-- res.partner inherit  -->
+    <record model="ir.ui.view" id="res_partner_history_count">
+        <field name="name">res_partner_history_count</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+          <button name="toggle_active" position="after">
+              <button type="object" class="oe_stat_button" nolabel="1" name="split_receptions_tree"  icon="fa-clock-o" >
+                  <field name="check_count" string="Entradas" widget="statinfo"/>
+              </button>
+          </button>
+        </field>
+    </record>
+    <!-- end  res.partner inherit -->
+
+  </data>
+</openerp>

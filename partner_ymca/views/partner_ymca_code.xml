@@ -1,0 +1,52 @@
+<openerp>
+  <data>
+
+    <record model="ir.ui.view" id="ymca_code_form_view">
+      <field name="name">ymca.code.form</field>
+      <field name="model">partner_ymca_code</field>
+      <field name="arch" type="xml">
+        <form>
+          <group col="2">
+            <field name="partner"/>
+            <field name="code"/>
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="ymca_code_tree_view">
+      <field name="name">ymca.code.tree</field>
+      <field name="model">partner_ymca_code</field>
+      <field name="arch" type="xml">
+        <tree string="Ymca Code" default_order="id desc" create="true" delete="true" editable="bottom">
+          <field name="code"/>
+          <field name="partner"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="ymca_code_list_action">
+      <field name="name">Ymca Code</field>
+      <field name="res_model">partner_ymca_code</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">Crear el primer codigo de usuario</p>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="ymca_code_search_view">
+        <field name="name">ymca.code.search</field>
+        <field name="model">partner_ymca_code</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="partner"/>
+            </search>
+        </field>
+    </record>
+
+
+    <menuitem id="action_ymca_code" name="Codigos" parent="account.menu_finance_entries" sequence="40" action="ymca_code_list_action"/>
+  </data>
+</openerp>

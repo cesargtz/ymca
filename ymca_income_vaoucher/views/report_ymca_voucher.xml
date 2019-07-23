@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+  <report id="ymca_voucher"
+    model="account.voucher"
+    string="Recibo de Pago"
+    name="account.report_ymca_voucher"
+    file="account.report_ymca_voucher"
+    report_type="qweb-pdf"/>
+
+
+  <template id="account.report_ymca_voucher">
+    <t t-call="report.html_container">
+      <t t-foreach="docs" t-as="o">
+
+          <div class="page">
+            <div style="margin:0px 0px 0px 750px; font-size:20px">
+              <strong><p t-field="o.amount"/></strong>
+            </div>
+            <div style="margin:35px 0px 0px 150px; font-size:18px">
+              <strong><p t-field="o.partner_id.name"/></strong>
+            </div>
+            <div style="margin:35px 0px 0px 150px; font-size:18px">
+              <strong><p t-field="o.amount"/></strong>
+            </div>
+            <div style="margin:100px 0px 0px 130px; font-size:20px">
+              <strong><p t-field="o.packages"/></strong>
+            </div>
+            <div style="margin:25px 0px 0px 520px; font-size:18px">
+              <strong><p><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/> </p></strong>
+            </div>
+              <div style="margin:100px 0px 0px 0px; font-size:18px">
+              <strong><p t-field="o.number"/></strong>
+            </div>
+          </div>
+      </t>
+    </t>
+  </template>
+
+</odoo>

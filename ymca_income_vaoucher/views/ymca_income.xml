@@ -1,0 +1,38 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="ymca_income_vaoucher.packages">
+      <field name="name">ymca_income_vaoucher packages</field>
+      <field name="model">account.voucher</field>
+      <field name="inherit_id" ref="account_voucher.view_sale_receipt_form"/>
+      <field name="arch" type="xml">
+        <field name="partner_id" position="after">
+            <field name="packages" attrs="{'readonly':[('state', 'not in', ['draft'])]}"/>
+        </field>
+        <field name="name" position="after">
+          <group style="color:#337ab7">
+           <label for="code_clock" style="margin:5px;">Codigo Checador</label>
+           <field name="code_clock" style="margin:5px;" nolabel="1" attrs="{'readonly':[('state', 'not in', ['draft'])]}"/>
+           <label class="color" for="last_month_pay" style="margin:5px;">Ultimo Pago</label>
+           <field class="color"	name="last_month_pay"  nolabel="1" attrs="{'readonly':[('state', 'not in', ['draft'])]}"/>
+         </group>
+          <group col="2" style="color:#337ab7">
+            <field name="tiene_casillero" attrs="{'readonly':[('state', 'not in', ['draft'])]}"/>
+            <field name="valido_hasta" attrs="{'invisible':[('tiene_casillero', '!=', True)]}"/>
+            <field name="no_casillero" style="margin:5px;" attrs="{'readonly':[('state', 'not in', ['draft'])],
+                                                                               'invisible':[('tiene_casillero', '!=', True)]}"/>
+          </group>
+        </field>
+        <notebook  position="inside">
+            <page string="Historial"  attrs="{'invisible':[('state','in',['posted','cancel'])]}">
+                <field name="incomes"/>
+            </page>
+            <page string="Familiares" attrs="{'invisible':[('state','in',['posted','cancel'])]}">
+                <field name="family"/>
+            </page>
+        </notebook>
+      </field>
+    </record>
+
+  </data>
+</odoo>
